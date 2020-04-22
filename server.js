@@ -3,7 +3,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 
-const PORT = process.env.PORT || 80
+const PORT = process.env.PORT || 81
 const api = require("./routes/api");
 const app = express();
 
@@ -15,7 +15,7 @@ app.use(bodyParser.json());
 app.use("/api", api);
 
 app.get("/", (req, res) => {
-  res.render("ngApp");
+  res.sendFile(__dirname + "/ngApp");
 });
 
 app.listen(PORT, function() {
