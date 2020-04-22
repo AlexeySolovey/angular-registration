@@ -6,6 +6,9 @@ const cors = require("cors");
 const PORT = 4444;
 const api = require("./routes/api");
 const app = express();
+
+app.use(express.static('ngApp'));
+
 app.use(cors());
 
 app.use(bodyParser.json());
