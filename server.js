@@ -1,23 +1,17 @@
-// https://www.youtube.com/watch?v=qML_nlIEnRQ&list=PLC3y8-rFHvwg2RBz6UplKTGIXREj9dV0G&index=23
-const express = require("express");
-const bodyParser = require("body-parser");
-const cors = require("cors");
+//Install express server
+const express = require('express');
+const path = require('path');
 
-const PORT = process.env.PORT || 4444;
-const api = require("./routes/api");
 const app = express();
 
-app.use(express.static('ngApp'));
+// Serve only the static files form the dist directory
+app.use(express.static(__dirname + '/dist/angular-deploy'));
 
-app.use(cors());
-
-app.use(bodyParser.json());
-app.use("/api", api);
-
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname+'/ngApp/index.html'));
+app.get('/*', function(req,res) {
+    
+res.sendFile(path.join(__dirname+'/dist/angular-deploy/index.html'));
 });
 
-app.listen(PORT, function() {
-  console.log("Server running on localhost:" + PORT);
-});
+// Start the app by listening on the default Heroku port
+app.listen(process.env.PORT || 8080);
+console.log('http:localhost:8080')
