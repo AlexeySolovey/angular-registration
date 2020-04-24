@@ -11,11 +11,8 @@ const app = express();
 
 app.use(cors());
 app.use(bodyParser.json());
-// app.use(express.static(__dirname + '/dist/angular-registration'));
+app.use(express.static(__dirname + '/dist/angular-registration'));
 app.use("/api", api);
-
-var distDir = __dirname + "/dist/";
-app.use(express.static(distDir));
 
 app.get('/*', function(req,res) {
     res.sendFile(path.join(__dirname+'/dist/angular-registration/index.html'));
