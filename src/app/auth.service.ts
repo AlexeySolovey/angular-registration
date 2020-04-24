@@ -6,8 +6,8 @@ import { Router } from "@angular/router";
   providedIn: "root"
 })
 export class AuthService {
-  private registerUrl = "/api/register";
-  private loginUrl = "/api/login";
+  private registerUrl = "https://server-registration.herokuapp.com/api/register";
+  private loginUrl = "https://server-registration.herokuapp.com/api/login";
   constructor(private http: HttpClient, private router: Router) {}
 
   registerUser(user) {
