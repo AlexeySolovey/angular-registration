@@ -45,6 +45,9 @@ app.get('/*', function(req,res) {
       res.json(events);
 });
 
+var distDir = __dirname + "/dist/";
+app.use(express.static(distDir));
+
 app.listen(PORT, function() {
    console.log("Server running on localhost:" + PORT);
 });
