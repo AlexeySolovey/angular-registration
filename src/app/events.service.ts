@@ -5,8 +5,8 @@ import { HttpClient } from "@angular/common/http";
   providedIn: "root"
 })
 export class EventsService {
-  private eventsUrl = "https://server-registration.herokuapp.com/api/events";
-  private specialUrl = "https://server-registration.herokuapp.com/api/special";
+  private eventsUrl = "/api/events";
+  private specialUrl = "/api/special";
   constructor(private http: HttpClient) {}
 
   getEvents() {
