@@ -15,18 +15,20 @@ mongoose.connect(db, (err) => {
 });
 
 function verifyToken(req, res, next) {
-  if (!req.headers.authorization) {
+  const authHeader = req.get('Authorization');
+  if (!authHeader) {
+    return res.status(401).send("you dont have a token");
   }
-  let token = req.headers.authorization.split(" ")[1];
-  if (token === null) {
-    return res.status(401).send("Unauthorized request");
+  const token = authHeader.replace('Bearer ', '');
+  
+  try {
+    jwt.verify(token, "secretKey");
+  } catch(e) {
+    if(e instanceof jwt.JsonWebTokenError) {
+      console.log('error');
+      return res.status(401).send("wrong token");
+    }
   }
-  let payload = jwt.verify(token, "secretKey");
-  if (!payload) {
-    return res.status(401).send("Unauthorized request");
-  }
-  req.userId = payload.subject;
-
   next();
 }
 
@@ -69,7 +71,7 @@ router.post("/login", (req, res) => {
   });
 });
 
-router.get("/events", (req, res) => {
+router.get("/events", verifyToken, (req, res) => {
   const events = [
     {
       _id: "1",
